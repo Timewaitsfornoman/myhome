@@ -1,8 +1,39 @@
+import {
+  Meteor
+} from 'meteor/meteor';
+import {
+    Session
+} from 'meteor/session';
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
 
-  const [counter, setCounter] = useState(0);
+  const [userName, setUserName] = useState('test@163.com');
+  const [passWord, setPassWord] = useState('123456');
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async event => {
+    event.preventDefault();
+    const user = {
+      username:userName,
+      password:passWord
+    };
+
+    Meteor.call('users.findUser', user, (error, result) => {
+        if (error) {
+            console.error(error);
+        } else {
+            if (result?.length) {
+                Session.set('userId', result[0]._id);
+               navigate("/");;
+            } else {
+                console.error('密码或用户名输入有误!');
+            }
+        }
+    });
+  }
 
   return (
     <div className="container">
@@ -10,8 +41,8 @@ export const Login = () => {
         <div className="log-wapper">
           <img src="img/leaf.jpg" alt="leaf" className="logo" />
         </div>
-        <form className="J_form form" autoComplete="off">
-          <h1 className="form-title">登录</h1>
+        <form className="J_form form" autoComplete="off" onSubmit={handleSubmit}>
+          <p className="form-title">登录</p>
           <p>
             <input
               id="J_username"
@@ -21,6 +52,7 @@ export const Login = () => {
               required="required"
               autoComplete="off"
               placeholder="用户名"
+              onChange={e => setUserName(e.target.value)}
             />
           </p>
           <p>
@@ -32,6 +64,7 @@ export const Login = () => {
               required="required"
               autoComplete="off"
               placeholder="密码"
+              onChange={e => setPassWord(e.target.value)}
             />
           </p>
           <p className="remember-box">

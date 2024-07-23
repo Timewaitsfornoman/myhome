@@ -1,8 +1,38 @@
+import {
+  Meteor
+} from 'meteor/meteor';
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
 
-  const [counter, setCounter] = useState(0);
+  const [userName, setUserName] = useState('');
+  const [passWord, setPassWord] = useState('');
+  const [passWordNext, setPassWordNext] = useState('');
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async event => {
+    event.preventDefault();
+    if(userName&&passWord&&passWordNext&&passWord == passWordNext) {
+      const user = {
+        username:userName,
+        password:passWord
+      };
+
+      Meteor.call('users.create', user, (error, result) => {
+          if (error) {
+              console.error(error);
+          } else {
+              if (result?.length) {
+                 navigate("/login");;
+              } else {
+                  console.error('密码或用户名输入有误!');
+              }
+          }
+      });
+    }
+  }
 
   return (
     <div className="container">
@@ -14,8 +44,9 @@ export const Register = () => {
           action="user/login"
           className="J_form form register-form"
           autoComplete="off"
+          onSubmit={handleSubmit}
         >
-          <h1 className="form-title">注册</h1>
+          <p className="form-title">注册</p>
           <p>
             <input
               id="J_username"
@@ -24,6 +55,7 @@ export const Register = () => {
               required="required"
               autoComplete="off"
               placeholder="用户名"
+              onChange={e => setUserName(e.target.value)}
             />
           </p>
           <p>
@@ -34,6 +66,7 @@ export const Register = () => {
               required="required"
               autoComplete="off"
               placeholder="密码"
+              onChange={e => setPassWord(e.target.value)}
             />
           </p>
           <p>
@@ -44,6 +77,7 @@ export const Register = () => {
               required="required"
               autoComplete="off"
               placeholder="再次输入密码"
+              onChange={e => setPassWordNext(e.target.value)}
             />
           </p>
           <p>

@@ -3,6 +3,7 @@ import { useFind, useSubscribe } from 'meteor/react-meteor-data';
 import { LinksCollection } from '../api/links';
 
 export const Contact = () => {
+  
   const isLoading = useSubscribe('links');
   const links = useFind(() => LinksCollection.find());
 
