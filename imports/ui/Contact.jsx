@@ -1,22 +1,21 @@
 import React from 'react';
 import { useFind, useSubscribe } from 'meteor/react-meteor-data';
-import { LinksCollection } from '../api/links';
+import { UsersCollection } from '../api/userAccount/';
 
 export const Contact = () => {
   
-  const isLoading = useSubscribe('links');
-  const links = useFind(() => LinksCollection.find());
+  const isLoading = useSubscribe('userAccount');
+  const userAccount = useFind(() => UsersCollection.find());
 
   if(isLoading()) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div>
-      <h2>Learn Meteor!</h2>
-      <ul>{links.map(
-        link => <li key={link._id}>
-          <a href={link.url}>{link.title}</a>
+    <div className="userAccount">
+      <ul>{userAccount.map(
+        user => <li key={user._id}>
+          {user.username}
         </li>
       )}</ul>
     </div>

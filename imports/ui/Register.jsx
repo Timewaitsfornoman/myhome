@@ -20,7 +20,7 @@ export const Register = () => {
         password:passWord
       };
 
-      Meteor.call('users.create', user, (error, result) => {
+      Meteor.call('userAccount.create', user, (error, result) => {
           if (error) {
               console.error(error);
           } else {

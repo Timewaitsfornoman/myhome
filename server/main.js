@@ -3,7 +3,7 @@ import {
 } from 'meteor/meteor';
 import {
   UsersCollection
-} from '/imports/api/users';
+} from '/imports/api/userAccount';
 
 Meteor.startup(async () => {
   // If the Links collection is empty, add some data.
@@ -12,12 +12,12 @@ Meteor.startup(async () => {
       username: 'test@163.com',
       password: '123456'
     };
-    Meteor.call('users.create', user, (error, result) => {});
+    Meteor.call('userAccount.create', user, (error, result) => {});
   }
 
   // We publish the entire Links collection to all clients.
   // In order to be fetched in real-time to the clients
-  Meteor.publish("users", function() {
+  Meteor.publish("userAccount", function() {
     return UsersCollection.find();
   });
 });

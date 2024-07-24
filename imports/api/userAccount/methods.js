@@ -27,9 +27,9 @@ export async function findUser(user = {}) {
 }
 
 Meteor.methods({
-  'users.create': create,
-  'users.update': update,
-  'users.remove': remove,
-  'users.find': findById,
-  'users.findUser': findUser,
+  'userAccount.create': create,
+  'userAccount.update': update,
+  'userAccount.remove': remove,
+  'userAccount.find': findById,
+  'userAccount.findUser': findUser,
 });

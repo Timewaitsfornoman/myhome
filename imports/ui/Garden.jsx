@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
-
+import {
+    Session
+} from 'meteor/session';
 import { Link } from "react-router-dom";
 
 export const Garden = () => {
 
+  const userId = Session.get('userId')||'';
+
   return (
     <>
       <ul className="page-header">
-        <li><Link to={`login`}>login</Link></li>
-        <li><Link to={`register`}>register</Link></li>
+        {!userId&&<li><Link to={`login`}>login</Link></li>}
+        {!userId&&<li><Link to={`register`}>register</Link></li>}
+        {userId&&<li><Link to={`contact`}>Users</Link></li>}
       </ul>
       <div className="page-wrapper">
         <section className="intro" id="zen-intro">

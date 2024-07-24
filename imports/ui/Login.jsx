@@ -21,7 +21,7 @@ export const Login = () => {
       password:passWord
     };
 
-    Meteor.call('users.findUser', user, (error, result) => {
+    Meteor.call('userAccount.findUser', user, (error, result) => {
         if (error) {
             console.error(error);
         } else {
