@@ -4,8 +4,18 @@ import {
 import {
   UsersCollection
 } from '/imports/api/userAccount';
+import {
+  TasksCollection
+} from '/imports/api/TasksCollection';
+
+const insertTask = taskText => TasksCollection.insertAsync({
+  title: taskText,
+  date: new Date(),
+  point: 0,
+});
 
 Meteor.startup(async () => {
+
   // If the Links collection is empty, add some data.
   if (await UsersCollection.find().countAsync() === 0) {
     const user = {
@@ -13,6 +23,18 @@ Meteor.startup(async () => {
       password: '123456'
     };
     Meteor.call('userAccount.create', user, (error, result) => {});
+  }
+
+  if (await TasksCollection.find().countAsync() === 0) {
+    [
+      'First Task',
+      'Second Task',
+      'Third Task',
+      'Fourth Task',
+      'Fifth Task',
+      'Sixth Task',
+      'Seventh Task'
+    ].forEach(insertTask)
   }
 
   // We publish the entire Links collection to all clients.

@@ -14,6 +14,7 @@ export const Garden = () => {
         {!userId&&<li><Link to={`login`}>login</Link></li>}
         {!userId&&<li><Link to={`register`}>register</Link></li>}
         {userId&&<li><Link to={`contact`}>Users</Link></li>}
+        {userId&&<li><Link to={`mytasks`}>MyTasks</Link></li>}
       </ul>
       <div className="page-wrapper">
         <section className="intro" id="zen-intro">

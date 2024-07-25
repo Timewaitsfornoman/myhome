@@ -10,6 +10,7 @@ import { Register } from './Register.jsx';
 import { Garden } from './Garden.jsx';
 import {Contact} from './Contact.jsx';
 import {ErrorPage} from './ErrorPage.jsx';
+import {MyTasks} from './MyTasks.jsx';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
    {
     path: "contact",
     element: <Contact />,
+  },
+  {
+    path: "mytasks",
+    element: <MyTasks />,
   },
 ]);
 
