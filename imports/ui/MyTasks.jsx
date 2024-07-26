@@ -1,14 +1,21 @@
 import React from 'react';
-import { useTracker } from 'meteor/react-meteor-data';
-import { TasksCollection } from '/imports/api/TasksCollection';
+import {
+  useFind,
+  useTracker,
+  useSubscribe
+} from 'meteor/react-meteor-data';
+import {
+  TasksCollection
+} from '/imports/api/TasksCollection';
 
 export const MyTasks = () => {
 
+  const isLoading = useSubscribe('tasks');
   const tasks = useTracker(() => TasksCollection.find({}).fetch());
 
   return (
     <div>
-      <h1>you Tasks</h1>
+      <p>you Tasks</p>
       <ul>
         { tasks.map(task => (<li key={ task._id }>{task.title}</li>)) }
       </ul>

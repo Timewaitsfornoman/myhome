@@ -37,6 +37,10 @@ Meteor.startup(async () => {
     ].forEach(insertTask)
   }
 
+  Meteor.publish("tasks", function() {
+    return TasksCollection.find();
+  });
+
   // We publish the entire Links collection to all clients.
   // In order to be fetched in real-time to the clients
   Meteor.publish("userAccount", function() {
