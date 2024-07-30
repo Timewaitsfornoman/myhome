@@ -33,7 +33,7 @@ const router = createBrowserRouter([
   {
     path: "mytasks",
     element: <MyTasks />,
-  },
+  }
 ]);
 
 export const App = () => {
